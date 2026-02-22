@@ -72,15 +72,15 @@
         position: absolute;
         inset: 0;
         background:
-            radial-gradient(ellipse 700px 500px at 15% 30%, rgba(134,19,48,0.18) 0%, transparent 60%),
-            radial-gradient(ellipse 500px 700px at 85% 70%, rgba(134,19,48,0.13) 0%, transparent 60%),
-            radial-gradient(ellipse 400px 300px at 50% 90%, rgba(134,19,48,0.08) 0%, transparent 50%);
+            radial-gradient(ellipse 700px 500px at 15% 30%, rgba(134,19,48,0.38) 0%, transparent 60%),
+            radial-gradient(ellipse 500px 700px at 85% 70%, rgba(134,19,48,0.28) 0%, transparent 60%),
+            radial-gradient(ellipse 400px 300px at 50% 90%, rgba(134,19,48,0.18) 0%, transparent 50%);
         animation: heroMeshShift 12s ease-in-out infinite alternate;
         z-index: 0;
     }
     @keyframes heroMeshShift {
-        0% { opacity: 0.7; transform: scale(1); }
-        100% { opacity: 1; transform: scale(1.05); }
+        0% { opacity: 0.75; transform: scale(1); }
+        100% { opacity: 1; transform: scale(1.08); }
     }
 
     /* Dark Section */
@@ -476,6 +476,63 @@
     @keyframes spinCW  { to { transform: rotate(360deg); } }
     @keyframes spinCCW { to { transform: rotate(-360deg); } }
 
+    /* Custom Hamburger */
+    .hamburger-bar {
+        display: block;
+        width: 22px;
+        height: 1.5px;
+        background: currentColor;
+        border-radius: 2px;
+        transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1),
+                    opacity 0.2s ease,
+                    width 0.3s ease;
+        transform-origin: center;
+    }
+    #menu-toggle.is-open .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #menu-toggle.is-open .hamburger-bar:nth-child(2) { opacity: 0; width: 0; }
+    #menu-toggle.is-open .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Menu Fullscreen */
+    #mobile-menu-panel {
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+    #mobile-menu-panel.menu-open { clip-path: inset(0 0 0% 0); }
+    .menu-nav-link {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.45s ease, transform 0.45s ease, color 0.2s ease;
+    }
+    .menu-nav-link.visible { opacity: 1; transform: translateY(0); }
+    .menu-nav-link:nth-child(1) { transition-delay: 0.18s; }
+    .menu-nav-link:nth-child(2) { transition-delay: 0.26s; }
+    .menu-nav-link:nth-child(3) { transition-delay: 0.34s; }
+    .menu-cta-link {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.4s ease 0.42s, transform 0.4s ease 0.42s;
+    }
+    .menu-cta-link.visible { opacity: 1; transform: translateY(0); }
+
+    /* Floating Z's */
+    .float-z {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1;
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        color: #861330;
+        opacity: 0;
+        will-change: transform, opacity;
+        user-select: none;
+    }
+    @keyframes floatUp {
+        0%   { opacity: 0; transform: translateY(0) rotate(var(--rot-start)); }
+        12%  { opacity: var(--max-opacity); }
+        85%  { opacity: var(--max-opacity); }
+        100% { opacity: 0; transform: translateY(var(--travel)) rotate(var(--rot-end)); }
+    }
+
     /* Reduced Motion */
     @media (prefers-reduced-motion: reduce) {
         .reveal { transition: opacity 0.3s ease; transform: none; }
@@ -532,28 +589,44 @@
 <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="bg-primary text-white px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider hover:bg-primary/90 cursor-pointer hidden md:flex items-center gap-2">
     SHOP <i data-lucide="shopping-bag" class="w-4 h-4"></i>
 </a>
-<button id="menu-toggle" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-primary/5 cursor-pointer" aria-label="Menü öffnen" aria-expanded="false">
-<i data-lucide="menu" class="w-6 h-6"></i>
+<button id="menu-toggle" class="md:hidden flex flex-col items-center justify-center gap-[6px] w-10 h-10 rounded-lg hover:bg-primary/5 cursor-pointer" aria-label="Menü öffnen" aria-expanded="false">
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
 </button>
 </div>
 </div>
 </header>
 
-<!-- Mobile Menu -->
+<!-- Mobile Menu Fullscreen -->
 <div id="mobile-menu" class="fixed inset-0 z-[60] pointer-events-none" aria-hidden="true">
-<div id="menu-backdrop" class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300"></div>
-<div id="menu-panel" class="absolute top-0 right-0 h-full w-72 bg-background-light dark:bg-background-dark shadow-2xl translate-x-full transition-transform duration-300 ease-out p-8 flex flex-col gap-8">
-<button id="menu-close" class="self-end w-10 h-10 flex items-center justify-center rounded-lg hover:bg-primary/5 cursor-pointer" aria-label="Menü schließen">
-<i data-lucide="x" class="w-6 h-6"></i>
-</button>
-<nav class="flex flex-col gap-6 text-lg font-medium">
-<a class="hover:text-primary transition-colors cursor-pointer" href="#ursachen">Ursachen</a>
-<a class="hover:text-primary transition-colors cursor-pointer" href="#wirkung">Wirkung</a>
-<a class="hover:text-primary transition-colors cursor-pointer" href="#faq">Anwendung</a>
-</nav>
-<a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="bg-primary text-white px-6 py-3 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-primary/90 cursor-pointer flex items-center justify-center gap-2 mt-auto">
-    SHOP <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-</a>
+<div id="mobile-menu-panel" class="absolute inset-0 bg-background-dark flex flex-col">
+
+    <!-- Panel header -->
+    <div class="flex items-center justify-between px-6 h-12 flex-shrink-0">
+        <img src="Logo.svg" alt="zZzlim®" class="h-7 w-auto opacity-80" />
+        <button id="menu-close" class="flex flex-col items-center justify-center gap-[6px] w-10 h-10 rounded-lg cursor-pointer text-white is-open" aria-label="Menü schließen" style="color: white;">
+            <span class="hamburger-bar" style="transform: translateY(7px) rotate(45deg);"></span>
+            <span class="hamburger-bar" style="opacity:0; width:0;"></span>
+            <span class="hamburger-bar" style="transform: translateY(-7px) rotate(-45deg);"></span>
+        </button>
+    </div>
+    <div class="h-px bg-primary/30 mx-6"></div>
+
+    <!-- Nav links centered -->
+    <nav class="flex-1 flex flex-col items-center justify-center gap-2">
+        <a class="menu-nav-link text-white hover:text-primary font-medium text-4xl tracking-tight cursor-pointer py-2" href="#ursachen">Ursachen</a>
+        <a class="menu-nav-link text-white hover:text-primary font-medium text-4xl tracking-tight cursor-pointer py-2" href="#wirkung">Wirkung</a>
+        <a class="menu-nav-link text-white hover:text-primary font-medium text-4xl tracking-tight cursor-pointer py-2" href="#faq">Anwendung</a>
+    </nav>
+
+    <!-- CTA -->
+    <div class="px-6 pb-12">
+        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="menu-cta-link bg-primary text-white px-6 py-4 rounded-full font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary/90">
+            SHOP <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+        </a>
+    </div>
+
 </div>
 </div>
 
@@ -561,33 +634,30 @@
 <section id="main-content" class="hero-mesh relative h-[calc(100dvh-3rem)] flex flex-col items-center justify-center text-center overflow-hidden">
 <div class="hero-stagger max-w-3xl mx-auto px-6 relative z-10">
 <span class="label-badge mb-5">Wissenschaftliche Abendroutine</span>
-<h1 class="text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] tracking-tight mb-0">
+<h1 class="text-2xl sm:text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] tracking-tight mb-0">
     Schlaf ist keine Pause.
 </h1>
-<p class="text-5xl md:text-7xl lg:text-8xl font-medium italic text-primary leading-[0.95] tracking-tight mb-6">Schlaf ist <span id="hero-word-wrap" style="display:inline-block;text-align:left;"><span id="hero-word">Reparatur</span></span></p>
+<p class="text-2xl sm:text-5xl md:text-7xl lg:text-8xl font-medium italic text-primary leading-[0.95] tracking-tight mb-6">Schlaf ist <span id="hero-word-wrap" style="display:inline-block;text-align:left;"><span id="hero-word">Reparatur</span></span></p>
 <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed mb-7">
     Wenn du nachts hellwach bist oder morgens gerädert aufwachst, liegt das oft nicht an dir – sondern an deinem Nervensystem und deiner Abendroutine.
 </p>
 <div class="flex flex-wrap justify-center gap-4 mb-7">
-<a class="inline-flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium border-b border-slate-400 pb-1 hover:text-primary hover:border-primary transition-colors cursor-pointer" href="#ursachen">
-    Warum das passiert <i data-lucide="arrow-down" class="w-4 h-4"></i>
-</a>
 <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="cta-glow bg-primary text-white px-8 py-3 rounded-lg font-bold text-base hover:bg-primary/90 cursor-pointer">
     In Ruhe ausprobieren
 </a>
 </div>
-<div class="w-12 h-px bg-primary/20 mx-auto mt-8 mb-4"></div>
+<div class="w-12 h-px bg-primary/20 mx-auto mt-4 md:mt-8 mb-4"></div>
 <p class="text-xs text-slate-400 uppercase tracking-widest">In Deutschland entwickelt · Produziert in der EU · Nahrungsergänzungsmittel</p>
 </div>
 <!-- Scroll Indicator -->
-<div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-primary text-xs font-bold uppercase tracking-[0.3em]" aria-hidden="true" id="scroll-indicator">
-    SCROLL
+<a href="#ursachen" class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-primary text-[10px] font-bold uppercase tracking-[0.2em] no-underline hover:opacity-80 transition-opacity" id="scroll-indicator">
+    Warum das passiert
     <i data-lucide="chevron-down" class="w-4 h-4 mt-1"></i>
-</div>
+</a>
 </section>
 
 <!-- PROBLEM IDENTIFICATION -->
-<section id="ursachen" class="shader-warm py-24 relative overflow-hidden">
+<section id="ursachen" class="shader-warm py-12 md:py-24 relative overflow-hidden">
 <!-- Decorative cycle rings -->
 <div class="absolute right-0 bottom-0 translate-x-1/3 translate-y-1/3 pointer-events-none select-none" aria-hidden="true">
 <svg width="340" height="340" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.08;">
@@ -599,7 +669,7 @@
 </svg>
 </div>
 <div class="max-w-7xl mx-auto px-6">
-<div class="reveal max-w-2xl mx-auto text-center mb-16">
+<div class="reveal max-w-2xl mx-auto text-center mb-8 md:mb-16">
 <span class="label-badge">Das Problem</span>
 <h2 class="text-4xl md:text-5xl font-medium mt-4 mb-6">Viele kennen diese Nächte</h2>
 <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -628,7 +698,7 @@
 <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Der Wecker klingelt und du fühlst dich schwerer als am Vorabend.</p>
 </div>
 </div>
-<p class="reveal text-center text-xl italic text-slate-600 dark:text-slate-400 mt-16">Du bist damit nicht allein.</p>
+<p class="reveal text-center text-xl italic text-slate-600 dark:text-slate-400 mt-8 md:mt-16">Du bist damit nicht allein.</p>
 </div>
 </section>
 
@@ -640,9 +710,9 @@
 </div>
 
 <!-- WAS IM SCHLAF PASSIERT -->
-<section class="tl-section py-32 overflow-hidden" id="timeline-section">
+<section class="tl-section py-16 md:py-32 overflow-hidden" id="timeline-section">
 <div class="max-w-5xl mx-auto px-6 relative">
-<div class="reveal text-center mb-28">
+<div class="reveal text-center mb-12 md:mb-28">
 <span class="label-badge">Was im Schlaf passiert</span>
 <h2 class="text-4xl md:text-5xl font-medium mb-6">Schlaf ist keine passive Pause.</h2>
 <p class="text-slate-600 dark:text-slate-400 text-lg max-w-3xl mx-auto leading-relaxed">
@@ -725,21 +795,21 @@
 <div class="tl-mobile-line-track"></div>
 <div class="tl-mobile-line-fill" id="tl-mobile-line-fill"></div>
 
-<div class="flex gap-4 mb-16 items-start" data-tl-mobile-event>
+<div class="flex gap-4 mb-10 items-start" data-tl-mobile-event>
 <div class="tl-mobile-dot mt-3" data-tl-mobile-dot></div>
 <div class="tl-mobile-event">
 <h4 class="text-lg font-bold mb-1">Nervensystem</h4>
 <p class="text-slate-600 dark:text-slate-400 italic text-sm leading-relaxed">Das Nervensystem fährt Schritt für Schritt herunter und wechselt vom Aktivitäts- in den Ruhemodus.</p>
 </div>
 </div>
-<div class="flex gap-4 mb-16 items-start" data-tl-mobile-event>
+<div class="flex gap-4 mb-10 items-start" data-tl-mobile-event>
 <div class="tl-mobile-dot mt-3" data-tl-mobile-dot></div>
 <div class="tl-mobile-event">
 <h4 class="text-lg font-bold mb-1">Mentale Erholung</h4>
 <p class="text-slate-600 dark:text-slate-400 italic text-sm leading-relaxed">Das Gehirn verarbeitet Eindrücke des Tages und unterstützt die mentale Erholung.</p>
 </div>
 </div>
-<div class="flex gap-4 mb-16 items-start" data-tl-mobile-event>
+<div class="flex gap-4 mb-10 items-start" data-tl-mobile-event>
 <div class="tl-mobile-dot mt-3" data-tl-mobile-dot></div>
 <div class="tl-mobile-event">
 <h4 class="text-lg font-bold mb-1">Hormonelle Prozesse</h4>
@@ -785,12 +855,12 @@
 </div>
 
 <!-- ABENDROUTINE -->
-<section class="shader-soft py-24">
+<section class="shader-soft py-12 md:py-24">
 <div class="max-w-4xl mx-auto px-6 text-center">
 <div class="reveal">
 <span class="label-badge">Abendroutine</span>
 <h2 class="text-4xl md:text-5xl font-medium mb-8">Schon kleine Veränderungen können helfen.</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 md:mb-16">
 <div class="card-glass rounded-xl p-8 text-center">
 <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
 <i data-lucide="monitor-off" class="w-7 h-7 text-primary"></i>
@@ -815,7 +885,7 @@
 </div>
 <figure class="reveal my-14 text-center px-4">
 <blockquote>
-<p class="text-3xl md:text-4xl lg:text-5xl font-medium italic text-primary/90 leading-snug mb-6">
+<p class="text-2xl md:text-3xl lg:text-4xl font-medium italic text-primary/90 leading-snug mb-6">
 „Konstanz ist wichtiger als Perfektion."
 </p>
 </blockquote>
@@ -823,7 +893,7 @@
 <figcaption class="text-xs text-slate-400 uppercase tracking-widest">Das Prinzip hinter zZzlim®</figcaption>
 </figure>
 </div>
-<div class="reveal bg-primary/5 rounded-2xl p-12 text-left max-w-3xl mx-auto">
+<div class="reveal bg-primary/5 rounded-2xl p-6 md:p-12 text-left max-w-3xl mx-auto">
 <h3 class="text-2xl font-bold mb-6 text-center">Warum zZzlim® entwickelt wurde</h3>
 <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
     Viele Menschen wissen heute, dass guter Schlaf nicht erst im Bett beginnt. Trotzdem ist es im Alltag schwer, jeden Abend dieselben Signale an den Körper zu senden.
@@ -836,16 +906,16 @@
 </section>
 
 <!-- DIE 3 SÄULEN VON zZzlim® -->
-<section id="wirkung" class="py-32 shader-cool dark:bg-background-dark">
+<section id="wirkung" class="py-16 md:py-32 shader-cool dark:bg-background-dark">
 <div class="max-w-7xl mx-auto px-6">
-<div class="reveal text-center mb-20">
+<div class="reveal text-center mb-10 md:mb-20">
 <span class="label-badge">Die Formulierung</span>
 <h2 class="text-4xl md:text-5xl font-medium">Die 3 Säulen von zZzlim®</h2>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 stagger-children items-start">
 
 <!-- Säule 1 -->
-<div class="reveal pillar-card-outer rounded-xl p-10 text-center lg:mt-12" style="--index: 0">
+<div class="reveal pillar-card-outer rounded-xl p-6 md:p-10 text-center lg:mt-12" style="--index: 0">
 <span class="pillar-num text-6xl font-black mb-4 block">01</span>
 <h3 class="text-xl font-bold mb-4">Unterstützung des Schlafbeginns</h3>
 <ul class="space-y-3 text-slate-600 dark:text-slate-400 leading-relaxed text-left inline-block">
@@ -862,7 +932,7 @@
 </div>
 
 <!-- Säule 2 -->
-<div class="reveal pillar-card rounded-xl p-10 text-center" style="--index: 1">
+<div class="reveal pillar-card rounded-xl p-6 md:p-10 text-center" style="--index: 1">
 <span class="pillar-num text-6xl font-black mb-4 block">02</span>
 <h3 class="text-xl font-bold mb-4">Unterstützung des nächtlichen Stoffwechsels</h3>
 <ul class="space-y-3 text-slate-600 dark:text-slate-400 leading-relaxed text-left inline-block">
@@ -883,7 +953,7 @@
 </div>
 
 <!-- Säule 3 -->
-<div class="reveal pillar-card-outer rounded-xl p-10 text-center lg:mt-12" style="--index: 2">
+<div class="reveal pillar-card-outer rounded-xl p-6 md:p-10 text-center lg:mt-12" style="--index: 2">
 <span class="pillar-num text-6xl font-black mb-4 block">03</span>
 <h3 class="text-xl font-bold mb-4">Unterstützung der täglichen Vitalität</h3>
 <ul class="space-y-3 text-slate-600 dark:text-slate-400 leading-relaxed text-left inline-block">
@@ -909,17 +979,17 @@
 </section>
 
 <!-- PRODUKT CTA -->
-<section class="relative py-28 md:py-36 overflow-hidden shader-glow">
+<section class="relative py-16 md:py-28 lg:py-36 overflow-hidden shader-glow">
 <!-- Decorative background text -->
 <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
-<span class="text-[12rem] md:text-[22rem] lg:text-[28rem] font-bold tracking-wider text-primary/[0.025] leading-none whitespace-nowrap">zZzlim®</span>
+<span class="text-[7rem] md:text-[12rem] lg:text-[22rem] font-bold tracking-wider text-primary/[0.025] leading-none whitespace-nowrap">zZzlim®</span>
 </div>
 <!-- Decorative radial glow behind product -->
 <div class="absolute left-[5%] md:left-[12%] top-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[550px] md:h-[550px] rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(134,19,48,0.13) 0%, rgba(134,19,48,0.06) 35%, transparent 65%);" aria-hidden="true"></div>
 
 <div class="reveal max-w-6xl mx-auto px-6 relative z-10">
 <!-- Mobile-only heading: appears before image -->
-<h2 class="md:hidden text-4xl font-medium leading-tight mb-8 text-center">
+<h2 class="md:hidden text-3xl sm:text-4xl font-medium leading-tight mb-8 text-center">
 Unterstützung für<br/>
 <span class="italic text-primary">deine Abendroutine.</span>
 </h2>
@@ -972,42 +1042,42 @@ Jetzt kostenlos testen
 
 <!-- Qualitätsmerkmale -->
 <div class="bg-white/50 backdrop-blur-sm border border-primary/8 rounded-xl px-6 py-6">
-<div class="grid grid-cols-3 gap-4 mb-5">
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-5">
 <div class="flex flex-col items-center gap-2 text-center">
 <div class="rounded-full bg-primary flex items-center justify-center" style="width:44px;height:44px;flex-shrink:0;">
 <i data-lucide="leaf" class="w-5 h-5 text-white"></i>
 </div>
-<span class="text-[10px] font-medium text-slate-500 leading-tight">Vegan</span>
+<span class="text-[11px] sm:text-[10px] font-medium text-slate-500 leading-tight">Vegan</span>
 </div>
 <div class="flex flex-col items-center gap-2 text-center">
 <div class="rounded-full bg-primary flex items-center justify-center" style="width:44px;height:44px;flex-shrink:0;">
 <i data-lucide="dna" class="w-5 h-5 text-white"></i>
 </div>
-<span class="text-[10px] font-medium text-slate-500 leading-tight">Ohne Gentechnik</span>
+<span class="text-[11px] sm:text-[10px] font-medium text-slate-500 leading-tight">Ohne Gentechnik</span>
 </div>
 <div class="flex flex-col items-center gap-2 text-center">
 <div class="rounded-full bg-primary flex items-center justify-center" style="width:44px;height:44px;flex-shrink:0;">
 <i data-lucide="wheat-off" class="w-5 h-5 text-white"></i>
 </div>
-<span class="text-[10px] font-medium text-slate-500 leading-tight">Glutenfrei</span>
+<span class="text-[11px] sm:text-[10px] font-medium text-slate-500 leading-tight">Glutenfrei</span>
 </div>
 <div class="flex flex-col items-center gap-2 text-center">
 <div class="rounded-full bg-primary flex items-center justify-center" style="width:44px;height:44px;flex-shrink:0;">
 <i data-lucide="rabbit" class="w-5 h-5 text-white"></i>
 </div>
-<span class="text-[10px] font-medium text-slate-500 leading-tight">Tierversuchsfrei</span>
+<span class="text-[11px] sm:text-[10px] font-medium text-slate-500 leading-tight">Tierversuchsfrei</span>
 </div>
 <div class="flex flex-col items-center gap-2 text-center">
 <div class="rounded-full bg-primary flex items-center justify-center" style="width:44px;height:44px;flex-shrink:0;">
 <i data-lucide="candy-off" class="w-5 h-5 text-white"></i>
 </div>
-<span class="text-[10px] font-medium text-slate-500 leading-tight">Ohne Zuckerzusatz</span>
+<span class="text-[11px] sm:text-[10px] font-medium text-slate-500 leading-tight">Ohne Zuckerzusatz</span>
 </div>
 <div class="flex flex-col items-center gap-2 text-center">
 <div class="rounded-full bg-primary flex items-center justify-center" style="width:44px;height:44px;flex-shrink:0;">
 <i data-lucide="flask-conical-off" class="w-5 h-5 text-white"></i>
 </div>
-<span class="text-[10px] font-medium text-slate-500 leading-tight">Ohne künstliche Aromen</span>
+<span class="text-[11px] sm:text-[10px] font-medium text-slate-500 leading-tight">Ohne künstliche Aromen</span>
 </div>
 </div>
 <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-4 border-t border-primary/10">
@@ -1023,8 +1093,8 @@ Jetzt kostenlos testen
 </section>
 
 <!-- SOCIAL PROOF -->
-<section class="py-24 shader-warm">
-<div class="reveal text-center mb-12 px-6">
+<section class="py-12 md:py-24 shader-warm">
+<div class="reveal text-center mb-6 md:mb-12 px-6">
 <span class="label-badge">Erfahrungen</span>
 <h2 class="text-4xl md:text-5xl font-medium">Das sagen Nutzer über zZzlim®</h2>
 </div>
@@ -1044,7 +1114,7 @@ Jetzt kostenlos testen
 </section>
 
 <!-- FAQ -->
-<section id="faq" class="py-24 md:py-32 shader-warm">
+<section id="faq" class="py-12 md:py-24 lg:py-32 shader-warm">
 <div class="max-w-5xl mx-auto px-6">
 <div class="reveal grid gap-10 md:grid-cols-5 md:gap-14">
 
@@ -1138,7 +1208,7 @@ Wissenschaftliche Abendroutine. In Deutschland entwickelt, produziert in der EU.
 </div>
 
 <!-- Link Columns -->
-<div class="grid grid-cols-2 mt-16 md:grid-cols-3 lg:col-span-8 lg:justify-items-end lg:mt-0">
+<div class="grid grid-cols-2 mt-10 md:mt-16 md:grid-cols-3 lg:col-span-8 lg:justify-items-end lg:mt-0">
 
 <!-- Shop -->
 <div>
@@ -1219,7 +1289,7 @@ AGB
 </div>
 
 <!-- Copyright -->
-<div class="mt-20 border-t border-primary/5 pt-6 pb-8 flex flex-col md:flex-row justify-between gap-2">
+<div class="mt-12 md:mt-20 border-t border-primary/5 pt-6 pb-8 flex flex-col md:flex-row justify-between gap-2">
 <p class="text-xs text-slate-400">&copy; 2025 zZzlim® International. Alle Rechte vorbehalten.</p>
 <p class="text-xs text-slate-400">Nahrungsergänzungsmittel. Kein Ersatz für eine ausgewogene Ernährung.</p>
 </div>
@@ -1312,35 +1382,41 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 backToTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// Mobile Menu
+// Mobile Menu (fullscreen overlay)
 const menuToggle = document.getElementById('menu-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
-const menuBackdrop = document.getElementById('menu-backdrop');
-const menuPanel = document.getElementById('menu-panel');
+const mobileMenuPanel = document.getElementById('mobile-menu-panel');
 const menuClose = document.getElementById('menu-close');
+const menuNavLinks = mobileMenu ? mobileMenu.querySelectorAll('.menu-nav-link') : [];
+const menuCtaLink = mobileMenu ? mobileMenu.querySelector('.menu-cta-link') : null;
 
 function openMenu() {
     mobileMenu.classList.remove('pointer-events-none');
     mobileMenu.setAttribute('aria-hidden', 'false');
     menuToggle.setAttribute('aria-expanded', 'true');
-    menuBackdrop.style.opacity = '1';
-    menuPanel.style.transform = 'translateX(0)';
+    menuToggle.classList.add('is-open');
+    mobileMenuPanel.classList.add('menu-open');
     document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+        menuNavLinks.forEach(l => l.classList.add('visible'));
+        if (menuCtaLink) menuCtaLink.classList.add('visible');
+    }, 60);
 }
 function closeMenu() {
-    menuBackdrop.style.opacity = '0';
-    menuPanel.style.transform = 'translateX(100%)';
     menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.classList.remove('is-open');
+    menuNavLinks.forEach(l => l.classList.remove('visible'));
+    if (menuCtaLink) menuCtaLink.classList.remove('visible');
+    mobileMenuPanel.classList.remove('menu-open');
     setTimeout(() => {
         mobileMenu.classList.add('pointer-events-none');
         mobileMenu.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-    }, 300);
+    }, 560);
 }
 menuToggle?.addEventListener('click', openMenu);
 menuClose?.addEventListener('click', closeMenu);
-menuBackdrop?.addEventListener('click', closeMenu);
-mobileMenu?.querySelectorAll('nav a').forEach(link => link.addEventListener('click', closeMenu));
+mobileMenu?.querySelectorAll('.menu-nav-link, .menu-cta-link').forEach(link => link.addEventListener('click', closeMenu));
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1404,6 +1480,34 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
     window.addEventListener('scroll', updateLineFill, { passive: true });
     updateLineFill();
+})();
+
+// Floating Z's
+(function() {
+    const zChars = ['z', 'zz', 'zzz', 'Z', 'zZ'];
+    const sizes = [13, 16, 20, 24];
+    function spawnZ() {
+        const el = document.createElement('span');
+        el.className = 'float-z';
+        el.textContent = zChars[Math.floor(Math.random() * zChars.length)];
+        const size = sizes[Math.floor(Math.random() * sizes.length)];
+        el.style.fontSize = size + 'px';
+        el.style.left = (4 + Math.random() * 88) + 'vw';
+        el.style.top = (15 + Math.random() * 65) + 'vh';
+        const travel = '-' + (70 + Math.random() * 110) + 'px';
+        const rotStart = (Math.random() * 16 - 8) + 'deg';
+        const rotEnd = (Math.random() * 28 - 14) + 'deg';
+        const maxOpacity = (0.035 + Math.random() * 0.04).toFixed(3);
+        const dur = 6 + Math.random() * 7;
+        el.style.setProperty('--travel', travel);
+        el.style.setProperty('--rot-start', rotStart);
+        el.style.setProperty('--rot-end', rotEnd);
+        el.style.setProperty('--max-opacity', maxOpacity);
+        el.style.animation = 'floatUp ' + dur + 's ease-out forwards';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), dur * 1000 + 100);
+    }
+    setTimeout(() => { spawnZ(); setInterval(spawnZ, 1800); }, 2000);
 })();
 
 // Testimonials Carousel (3 visible, slide)
