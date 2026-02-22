@@ -1,0 +1,6 @@
+# IDE & Tool configs
+.claude/
+.windsurf/
+.agent/
+.agents/
+skills-lock.json
