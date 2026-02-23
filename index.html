@@ -877,7 +877,7 @@
 </div>
 
 <!-- UNSER MODERNER ABEND -->
-<section class="section-dark relative py-24 px-6 overflow-hidden">
+<section class="section-dark relative py-32 md:py-40 px-6 overflow-hidden flex items-center justify-center min-h-[50vh]">
 <div class="reveal max-w-3xl mx-auto text-center relative z-10">
 <span class="label-badge" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.7);">Unser moderner Abend</span>
 <h2 class="text-4xl md:text-5xl font-medium italic mb-8 text-white">Das Problem beginnt vor dem Bett.</h2>
@@ -1061,7 +1061,7 @@ Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt von Experten für 
 <span class="font-bold text-slate-800">Nopal-Kaktus Pulver</span>
 </div>
 </div>
-<div class="flex flex-col sm:flex-row items-center md:items-start gap-4">
+<div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
 <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln" class="cta-glow inline-block bg-primary text-white px-10 py-4 rounded-lg font-bold text-sm uppercase tracking-wider hover:bg-primary/90 cursor-pointer">
 Jetzt kostenlos testen
 </a>
@@ -1484,14 +1484,14 @@ document.querySelectorAll('.pillar-card, .pillar-card-outer').forEach(card => {
     if (!outer || !track) return;
 
     const testimonials = [
-        { quote: 'Keine Hungerattacken mehr – trotz Wechseljahren und unverändertem Alltag. Endlich ruhig schlafen und sich wieder wohlfühlen.', author: 'Christine J., 53 J.', initials: 'CJ' },
-        { quote: 'Nur 5 h Schlaf? Das war einmal! Süßes Verlangen weg, laut App perfekter Schlaf – ganz ohne Mittagsschlaf.', author: 'Ulrich R., 74 J.', initials: 'UR' },
-        { quote: 'Mein Schlafverhalten hat sich sehr schnell verbessert und die Lust auf irgendwelche Snacks ist extrem zurückgegangen.', author: 'Ronald J.', initials: 'RJ' },
-        { quote: 'Seit ich zZzlim nutze, schlafe ich endlich besser, tiefer und wache erholt auf. Ich fühle mich entspannter und ausgeglichener.', author: 'Monika B., 54 J.', initials: 'MB' },
-        { quote: 'Ich war anfangs skeptisch, aber nach zwei Wochen schlafe ich tiefer und wache viel erholter auf. Meine Abendroutine hat sich komplett verändert.', author: 'Stefan K., 41 J.', initials: 'SK' },
-        { quote: 'Endlich ein Produkt, das hält, was es verspricht. Ich bin ruhiger am Abend und schlafe schneller ein.', author: 'Luisa H., 38 J.', initials: 'LH' },
-        { quote: 'Mein Schlaf hat sich spürbar verbessert. Ich wache nicht mehr um 3 Uhr auf und fühle mich morgens deutlich fitter.', author: 'Peter M., 62 J.', initials: 'PM' },
-        { quote: 'Als Krankenschwester im Schichtdienst war mein Schlaf immer ein Problem. zZzlim hilft mir, schneller in den Ruhemodus zu kommen.', author: 'Andrea W., 47 J.', initials: 'AW' }
+        { quote: 'Keine Hungerattacken mehr – trotz Wechseljahren und unverändertem Alltag. Endlich ruhig schlafen und sich wieder wohlfühlen.', author: 'Christine J., 53 J.', img: 'https://i.pravatar.cc/80?img=32' },
+        { quote: 'Nur 5 h Schlaf? Das war einmal! Süßes Verlangen weg, laut App perfekter Schlaf – ganz ohne Mittagsschlaf.', author: 'Ulrich R., 74 J.', img: 'https://i.pravatar.cc/80?img=59' },
+        { quote: 'Mein Schlafverhalten hat sich sehr schnell verbessert und die Lust auf irgendwelche Snacks ist extrem zurückgegangen.', author: 'Ronald J.', img: 'https://i.pravatar.cc/80?img=12' },
+        { quote: 'Seit ich zZzlim nutze, schlafe ich endlich besser, tiefer und wache erholt auf. Ich fühle mich entspannter und ausgeglichener.', author: 'Monika B., 54 J.', img: 'https://i.pravatar.cc/80?img=25' },
+        { quote: 'Ich war anfangs skeptisch, aber nach zwei Wochen schlafe ich tiefer und wache viel erholter auf. Meine Abendroutine hat sich komplett verändert.', author: 'Stefan K., 41 J.', img: 'https://i.pravatar.cc/80?img=53' },
+        { quote: 'Endlich ein Produkt, das hält, was es verspricht. Ich bin ruhiger am Abend und schlafe schneller ein.', author: 'Luisa H., 38 J.', img: 'https://i.pravatar.cc/80?img=45' },
+        { quote: 'Mein Schlaf hat sich spürbar verbessert. Ich wache nicht mehr um 3 Uhr auf und fühle mich morgens deutlich fitter.', author: 'Peter M., 62 J.', img: 'https://i.pravatar.cc/80?img=68' },
+        { quote: 'Als Krankenschwester im Schichtdienst war mein Schlaf immer ein Problem. zZzlim hilft mir, schneller in den Ruhemodus zu kommen.', author: 'Andrea W., 47 J.', img: 'https://i.pravatar.cc/80?img=44' }
     ];
 
     const GAP = 24;
@@ -1508,7 +1508,7 @@ document.querySelectorAll('.pillar-card, .pillar-card-outer').forEach(card => {
                 '<div class="t-stars">★★★★★</div>' +
                 '<p class="t-quote">\u201E' + t.quote + '\u201C</p>' +
                 '<div class="t-author" style="display:flex;align-items:center;gap:0.6rem;">' +
-                '<span style="width:28px;height:28px;border-radius:50%;background:rgba(134,19,48,0.1);color:#861330;font-size:0.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:0.02em;">' + t.initials + '</span>' +
+                '<img src="' + t.img + '" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid rgba(134,19,48,0.15);" loading="lazy" />' +
                 '<span>' + t.author + '</span>' +
                 '</div>';
             track.appendChild(card);
