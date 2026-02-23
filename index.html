@@ -439,19 +439,17 @@
     .back-to-top { opacity: 0; pointer-events: none; transition: opacity 0.3s ease-out; }
     .back-to-top.visible { opacity: 1; pointer-events: auto; }
 
-    /* Hero Word Swap Animation */
-    #hero-word-wrap { overflow: visible; vertical-align: baseline; }
-    #hero-word { display: inline-block; }
-    @keyframes wordFadeOut {
-        0%   { opacity: 1; filter: blur(0px);  transform: translateY(0); }
-        100% { opacity: 0; filter: blur(6px);  transform: translateY(0.25em); }
+    /* Hero Typewriter */
+    #hero-word-wrap { overflow: visible; vertical-align: baseline; display: inline; }
+    #hero-word {
+        display: inline;
+        border-right: 2px solid #861330;
+        animation: blink 0.7s step-end infinite;
     }
-    @keyframes wordFadeIn {
-        0%   { opacity: 0; filter: blur(6px);  transform: translateY(-0.25em); }
-        100% { opacity: 1; filter: blur(0px);  transform: translateY(0); }
+    #hero-word.done { border-right-color: transparent; animation: none; }
+    @keyframes blink {
+        50% { border-right-color: transparent; }
     }
-    .hero-word-out { animation: wordFadeOut 0.35s cubic-bezier(0.4,0,1,1) forwards; }
-    .hero-word-in  { animation: wordFadeIn  0.40s cubic-bezier(0,0,0.2,1) forwards; }
 
     /* Label Badge */
     .label-badge {
@@ -678,7 +676,7 @@
 <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.95] tracking-tight mb-1">
     Schlaf ist keine Pause.
 </h1>
-<p class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium italic text-primary leading-[0.95] tracking-tight mb-6">Schlaf ist <span id="hero-word-wrap" style="display:inline-block;text-align:left;"><span id="hero-word">Reparatur</span></span></p>
+<p class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-medium italic text-primary leading-[0.95] tracking-tight mb-6">Schlaf ist <span id="hero-word-wrap"><span id="hero-word"></span></span></p>
 <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed mb-7">
     Wenn du nachts hellwach bist oder morgens gerädert aufwachst, liegt das oft nicht an dir – sondern an deinem Nervensystem und deiner Abendroutine.
 </p>
@@ -1264,36 +1262,22 @@ Wissenschaftliche Abendroutine. Produziert in der EU.
 // Init Lucide icons
 lucide.createIcons();
 
-// Hero word cycling
+// Hero typewriter
 (function() {
-    const words = ['Reparatur', 'Erholung', 'Kraft', 'Heilung', 'Medizin', 'Leben'];
-    let wordIdx = 0;
-    const wordEl = document.getElementById('hero-word');
-    const wordWrap = document.getElementById('hero-word-wrap');
-    if (!wordEl || !wordWrap) return;
-
-    function lockWidth() {
-        const orig = wordEl.textContent;
-        let maxW = 0;
-        words.forEach(w => { wordEl.textContent = w; maxW = Math.max(maxW, wordEl.scrollWidth); });
-        wordWrap.style.minWidth = maxW + 'px';
-        wordEl.textContent = orig;
+    const word = 'Reparatur';
+    const el = document.getElementById('hero-word');
+    if (!el) return;
+    let i = 0;
+    function type() {
+        if (i <= word.length) {
+            el.textContent = word.slice(0, i);
+            i++;
+            setTimeout(type, 120);
+        } else {
+            setTimeout(() => el.classList.add('done'), 600);
+        }
     }
-    lockWidth();
-    let rTimer;
-    window.addEventListener('resize', () => { clearTimeout(rTimer); rTimer = setTimeout(lockWidth, 100); });
-
-    function cycle() {
-        wordEl.classList.remove('hero-word-in');
-        wordEl.classList.add('hero-word-out');
-        setTimeout(() => {
-            wordIdx = (wordIdx + 1) % words.length;
-            wordEl.textContent = words[wordIdx];
-            wordEl.classList.remove('hero-word-out');
-            wordEl.classList.add('hero-word-in');
-        }, 350);
-    }
-    setInterval(cycle, 3000);
+    setTimeout(type, 800);
 })();
 
 // Scroll Reveal
