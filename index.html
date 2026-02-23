@@ -1484,14 +1484,14 @@ document.querySelectorAll('.pillar-card, .pillar-card-outer').forEach(card => {
     if (!outer || !track) return;
 
     const testimonials = [
-        { quote: 'Keine Hungerattacken mehr – trotz Wechseljahren und unverändertem Alltag. Endlich ruhig schlafen und sich wieder wohlfühlen.', author: 'Christine J., 53 J.', img: 'https://i.pravatar.cc/80?img=32' },
-        { quote: 'Nur 5 h Schlaf? Das war einmal! Süßes Verlangen weg, laut App perfekter Schlaf – ganz ohne Mittagsschlaf.', author: 'Ulrich R., 74 J.', img: 'https://i.pravatar.cc/80?img=59' },
-        { quote: 'Mein Schlafverhalten hat sich sehr schnell verbessert und die Lust auf irgendwelche Snacks ist extrem zurückgegangen.', author: 'Ronald J.', img: 'https://i.pravatar.cc/80?img=12' },
-        { quote: 'Seit ich zZzlim nutze, schlafe ich endlich besser, tiefer und wache erholt auf. Ich fühle mich entspannter und ausgeglichener.', author: 'Monika B., 54 J.', img: 'https://i.pravatar.cc/80?img=25' },
-        { quote: 'Ich war anfangs skeptisch, aber nach zwei Wochen schlafe ich tiefer und wache viel erholter auf. Meine Abendroutine hat sich komplett verändert.', author: 'Stefan K., 41 J.', img: 'https://i.pravatar.cc/80?img=53' },
-        { quote: 'Endlich ein Produkt, das hält, was es verspricht. Ich bin ruhiger am Abend und schlafe schneller ein.', author: 'Luisa H., 38 J.', img: 'https://i.pravatar.cc/80?img=45' },
-        { quote: 'Mein Schlaf hat sich spürbar verbessert. Ich wache nicht mehr um 3 Uhr auf und fühle mich morgens deutlich fitter.', author: 'Peter M., 62 J.', img: 'https://i.pravatar.cc/80?img=68' },
-        { quote: 'Als Krankenschwester im Schichtdienst war mein Schlaf immer ein Problem. zZzlim hilft mir, schneller in den Ruhemodus zu kommen.', author: 'Andrea W., 47 J.', img: 'https://i.pravatar.cc/80?img=44' }
+        { quote: 'Keine Hungerattacken mehr – trotz Wechseljahren und unverändertem Alltag. Endlich ruhig schlafen und sich wieder wohlfühlen.', author: 'Christine J., 53 J.' },
+        { quote: 'Nur 5 h Schlaf? Das war einmal! Süßes Verlangen weg, laut App perfekter Schlaf – ganz ohne Mittagsschlaf.', author: 'Ulrich R., 74 J.' },
+        { quote: 'Mein Schlafverhalten hat sich sehr schnell verbessert und die Lust auf irgendwelche Snacks ist extrem zurückgegangen.', author: 'Ronald J.' },
+        { quote: 'Seit ich zZzlim nutze, schlafe ich endlich besser, tiefer und wache erholt auf. Ich fühle mich entspannter und ausgeglichener.', author: 'Monika B., 54 J.' },
+        { quote: 'Ich war anfangs skeptisch, aber nach zwei Wochen schlafe ich tiefer und wache viel erholter auf. Meine Abendroutine hat sich komplett verändert.', author: 'Stefan K., 41 J.' },
+        { quote: 'Endlich ein Produkt, das hält, was es verspricht. Ich bin ruhiger am Abend und schlafe schneller ein.', author: 'Luisa H., 38 J.' },
+        { quote: 'Mein Schlaf hat sich spürbar verbessert. Ich wache nicht mehr um 3 Uhr auf und fühle mich morgens deutlich fitter.', author: 'Peter M., 62 J.' },
+        { quote: 'Als Krankenschwester im Schichtdienst war mein Schlaf immer ein Problem. zZzlim hilft mir, schneller in den Ruhemodus zu kommen.', author: 'Andrea W., 47 J.' }
     ];
 
     const GAP = 24;
@@ -1507,10 +1507,7 @@ document.querySelectorAll('.pillar-card, .pillar-card-outer').forEach(card => {
             card.innerHTML =
                 '<div class="t-stars">★★★★★</div>' +
                 '<p class="t-quote">\u201E' + t.quote + '\u201C</p>' +
-                '<div class="t-author" style="display:flex;align-items:center;gap:0.6rem;">' +
-                '<img src="' + t.img + '" alt="" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid rgba(134,19,48,0.15);" loading="lazy" />' +
-                '<span>' + t.author + '</span>' +
-                '</div>';
+                '<p class="t-author">' + t.author + '</p>';
             track.appendChild(card);
         });
         requestAnimationFrame(() => { setWidths(); goTo(tIndex, false); });
