@@ -27,6 +27,13 @@
 <style>
     body { font-family: 'Fraunces', serif; }
 
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f8f6f6; }
+    ::-webkit-scrollbar-thumb { background: #861330; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6e0f28; }
+    html { scrollbar-color: #861330 #f8f6f6; scrollbar-width: thin; scroll-behavior: smooth; }
+
     /* Ambient Floating Blobs */
     .ambient-blob {
         position: fixed;
@@ -848,8 +855,8 @@
 </section>
 
 <!-- Wave: Timeline → Dark Section -->
-<div class="wave-divider" aria-hidden="true">
-<svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+<div class="wave-divider" style="margin-top:-2px; background:#1a0d11;" aria-hidden="true">
+<svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
 <path d="M0,20 C480,60 960,0 1440,30 L1440,60 L0,60 Z" fill="#1a0d11"/>
 </svg>
 </div>
@@ -857,7 +864,7 @@
 <!-- UNSER MODERNER ABEND -->
 <section class="section-dark relative py-24 px-6 overflow-hidden">
 <div class="reveal max-w-3xl mx-auto text-center relative z-10">
-<span class="label-badge" style="color:rgba(134,19,48,0.7)">Unser moderner Abend</span>
+<span class="label-badge" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.15); color:rgba(255,255,255,0.7);">Unser moderner Abend</span>
 <h2 class="text-4xl md:text-5xl font-medium italic mb-8 text-white">Das Problem beginnt vor dem Bett.</h2>
 <p class="text-xl text-white/60 leading-relaxed">
     Späte Mahlzeiten, Bildschirmlicht und Stress bis kurz vor dem Einschlafen senden Aktivitätssignale an den Körper. Für ihn beginnt die Nacht dadurch oft zu spät.
