@@ -704,6 +704,18 @@
             color: #475569;
         }
 
+        @media (max-width: 767px) {
+            .nt-step.active .nt-time {
+                font-size: 1.5rem;
+            }
+            .nt-step.active .nt-label {
+                font-size: 12px;
+            }
+            .nt-step.active .nt-desc {
+                font-size: 0.8rem;
+            }
+        }
+
         /* 07:00 gold glow */
         .nt-step.active .nt-icon-final {
             box-shadow: 0 0 20px rgba(218, 165, 32, 0.3), 0 0 48px rgba(218, 165, 32, 0.15);
@@ -995,10 +1007,14 @@
             }
         }
 
-        /* Reduce timeline scroll height on mobile */
+        /* Reduce scroll heights on mobile */
         @media (max-width: 767px) {
+            #hero-video-wrapper {
+                height: 200vh !important;
+            }
+
             #night-timeline-wrapper {
-                height: 120vh !important;
+                height: 300vh !important;
             }
 
             .float-z {
@@ -1116,7 +1132,7 @@
                 style="background: radial-gradient(ellipse 60% 50% at 15% 20%, rgba(134,19,48,0.10) 0%, transparent 100%), radial-gradient(ellipse 50% 60% at 85% 75%, rgba(134,19,48,0.08) 0%, transparent 100%), radial-gradient(ellipse 40% 40% at 50% 10%, rgba(134,19,48,0.06) 0%, transparent 100%);"></div>
 
             <!-- Canvas for frame sequence – centered, overlapping headline -->
-            <div class="absolute left-1/2 top-[65%] -translate-x-1/2 -translate-y-1/2 w-[84%] sm:w-[70%] md:w-[53%] h-[85%] z-[8] pointer-events-none">
+            <div class="absolute left-1/2 top-[52%] md:top-[65%] -translate-x-1/2 -translate-y-1/2 w-[110%] sm:w-[85%] md:w-[53%] h-[75%] md:h-[85%] z-[8] pointer-events-none">
                 <canvas id="hero-canvas" class="w-full h-full hero-reveal" style="--delay: 0s"></canvas>
             </div>
 
@@ -1137,12 +1153,12 @@
                 <div class="flex-1"></div>
 
                 <!-- Bottom Bar -->
-                <div class="relative z-30 w-full flex flex-col items-center gap-5 pb-6 md:pb-10">
+                <div class="relative z-30 w-full flex flex-col items-center gap-5 pb-8 md:pb-10">
 
                     <!-- CTA Button – zentriert, groß -->
                     <div class="hero-reveal" style="--delay: 0.9s">
                         <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln"
-                            class="cta-glow bg-primary text-white px-10 py-4 rounded-lg font-bold text-base hover:bg-primary/90 cursor-pointer inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all">
+                            class="cta-glow bg-primary text-white px-12 py-5 md:px-10 md:py-4 rounded-lg font-bold text-lg md:text-base hover:bg-primary/90 cursor-pointer inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all">
                             Jetzt ansehen
                         </a>
                     </div>
@@ -1171,7 +1187,7 @@
             <!-- Heading -->
             <div class="text-center mb-8 md:mb-10 px-6 mx-auto">
                 <h2
-                    class="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold italic leading-[0.95] tracking-tight whitespace-nowrap">
+                    class="text-xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold italic leading-[1] tracking-tight md:whitespace-nowrap">
                     Der Weg zur vollständigen Regeneration</h2>
             </div>
 
@@ -1447,7 +1463,14 @@
     <section class="relative py-14 md:py-20 bg-[#f8f6f6] overflow-hidden" style="content-visibility: auto;">
         <div class="max-w-6xl mx-auto px-6">
 
-            <!-- 2-Column: Bild links, Content rechts (Mobile: untereinander) -->
+            <!-- Mobile: Titel oben zentriert, dann Bild, dann Content -->
+            <!-- Heading – nur auf Mobile oben zentriert sichtbar -->
+            <div class="text-center mb-6 lg:hidden pillar-reveal">
+                <h2 class="text-2xl sm:text-3xl font-bold leading-tight tracking-tight font-display">
+                    Unterstützung für <span class="italic text-primary">deine Abendroutine.</span>
+                </h2>
+            </div>
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
                 <!-- Links: Produktbild mit Badges -->
@@ -1456,17 +1479,17 @@
                 </div>
 
                 <!-- Rechts: Headline, Text, Checkliste, CTA, Badges -->
-                <div class="pillar-reveal">
-                    <h2 class="text-2xl sm:text-3xl md:text-[2.75rem] font-bold leading-tight tracking-tight font-display mb-4 md:mb-5">
+                <div class="pillar-reveal text-center lg:text-left">
+                    <h2 class="hidden lg:block text-2xl sm:text-3xl md:text-[2.75rem] font-bold leading-tight tracking-tight font-display mb-4 md:mb-5">
                         Unterstützung für<br /><span class="italic text-primary">deine Abendroutine.</span>
                     </h2>
 
-                    <p class="text-slate-600 text-sm md:text-base leading-relaxed mb-6 md:mb-8 max-w-lg">
+                    <p class="text-slate-600 text-sm md:text-base leading-relaxed mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0">
                         Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt von Experten für eine neue Kultur des Schlafens. 100% Vegan.
                     </p>
 
                     <!-- Checkliste -->
-                    <div class="flex flex-col gap-3.5 mb-7 md:mb-8">
+                    <div class="flex flex-col gap-3.5 mb-7 md:mb-8 items-center lg:items-start">
                         <div class="flex items-center gap-3">
                             <svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
@@ -1537,7 +1560,7 @@
                     </div>
 
                     <!-- Mérieux Logo -->
-                    <div class="flex items-center gap-3 mt-5 md:mt-6">
+                    <div class="flex items-center justify-center lg:justify-start gap-3 mt-5 md:mt-6">
                         <span class="text-xs font-bold italic text-slate-700">Jede Charge unabhängig geprüft durch:</span>
                         <img src="68bf2fd664663f05dc5b4154_large-White_Merieux_Logo.webp" alt="Mérieux NutriSciences" class="h-6 md:h-7 object-contain invert" loading="lazy" />
                     </div>
@@ -1556,7 +1579,7 @@
                 <h2
                     class="text-2xl sm:text-3xl md:text-[2.75rem] font-bold italic leading-tight tracking-tight font-display">
                     Eine durchdachte Kombination für deine <span class="text-primary">nächtliche Routine</span></h2>
-                <p class="text-sm md:text-base text-slate-500 mt-4 max-w-2xl mx-auto leading-relaxed">zZzlim® kombiniert
+                <p class="hidden md:block text-sm md:text-base text-slate-500 mt-4 max-w-2xl mx-auto leading-relaxed">zZzlim® kombiniert
                     gezielte Inhaltsstoffe für eine durchdachte Abendformel. Entwickelt für alle, die ihre nächtlichen
                     Regenerationsprozesse natürlich unterstützen möchten.</p>
             </div>
@@ -1586,14 +1609,6 @@
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Oft Fokus auf einzelne Aspekte
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-600 border-b border-slate-200/60 pb-3.5">
-                            <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
-                                    clip-rule="evenodd" />
-                            </svg>
                             Oft keine externe Prüfung
                         </li>
                         <li class="flex items-start gap-3 text-sm text-slate-600 border-b border-slate-200/60 pb-3.5">
@@ -1602,31 +1617,7 @@
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
                                     clip-rule="evenodd" />
                             </svg>
-                            Unterschiedliche Dosierungen
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-600 border-b border-slate-200/60 pb-3.5">
-                            <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
-                                    clip-rule="evenodd" />
-                            </svg>
                             Oft weniger transparent
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-600 border-b border-slate-200/60 pb-3.5">
-                            <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Oft mehrere Kapseln nötig
-                        </li>
-                        <li class="flex items-start gap-3 text-sm text-slate-600 border-b border-slate-200/60 pb-3.5">
-                            <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Eignung für langfristige Einnahme oft unklar
                         </li>
                         <li class="flex items-start gap-3 text-sm text-slate-600 border-b border-slate-200/60 pb-3.5">
                             <svg class="w-5 h-5 mt-0.5 shrink-0 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
@@ -1752,13 +1743,23 @@
                 class="relative bg-primary rounded-3xl md:min-h-[480px] flex flex-col md:flex-row items-center overflow-visible">
 
                 <!-- Layer 1 (oberste): Text + Button links -->
-                <div class="relative z-20 flex-1 text-center md:text-left px-8 md:px-14 py-10 md:py-20 max-w-lg">
+                <div class="relative z-20 flex-1 text-center md:text-left px-8 md:px-14 pt-10 pb-4 md:py-20 max-w-lg order-1 md:order-none">
                     <h2
                         class="text-2xl sm:text-3xl md:text-4xl font-bold italic leading-tight tracking-tight font-display text-white">
                         Bereit für erholsame Nächte?</h2>
+                </div>
 
+                <!-- Layer 2 (mittel): Bild – auf Mobile mittig zwischen Headline und Button -->
+                <div
+                    class="relative z-10 flex justify-center order-2 md:order-none md:absolute md:right-[-20px] md:top-[-80px] md:bottom-[-80px] md:w-[48%] md:items-center md:justify-center pointer-events-none py-4 md:py-0">
+                    <img id="cta-parallax-img" src="Newww.png" alt="zZzlim® Produkt"
+                        class="w-[220px] md:w-full md:max-w-[400px] h-auto object-contain drop-shadow-2xl" loading="lazy" />
+                </div>
+
+                <!-- Layer 3: CTA + Subtext – auf Mobile unter dem Bild -->
+                <div class="relative z-20 text-center md:text-left px-8 md:px-14 pb-10 md:pb-0 md:absolute md:bottom-20 md:left-0 order-3 md:order-none max-w-lg">
                     <a href="https://zzzlim.de/products/zzzlim®-monatskur-30-kapseln" target="_blank" rel="noopener"
-                        class="cta-glow inline-flex items-center gap-3 mt-6 md:mt-8 bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg md:text-xl hover:bg-white/90 cursor-pointer">
+                        class="cta-glow inline-flex items-center gap-3 bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg md:text-xl hover:bg-white/90 cursor-pointer">
                         Jetzt entdecken <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M5 12h14" />
@@ -1766,13 +1767,6 @@
                         </svg>
                     </a>
                     <p class="text-white/65 text-xs md:text-sm mt-3">Testen Sie es 30 Tage kostenlos.</p>
-                </div>
-
-                <!-- Layer 2 (mittel): Bild rechts, ragt über die Box hinaus -->
-                <div
-                    class="relative z-10 flex justify-center md:absolute md:right-[-20px] md:top-[-80px] md:bottom-[-80px] md:w-[48%] md:items-center md:justify-center pointer-events-none">
-                    <img id="cta-parallax-img" src="Newww.png" alt="zZzlim® Produkt"
-                        class="w-[220px] md:w-full md:max-w-[400px] h-auto object-contain drop-shadow-2xl" loading="lazy" />
                 </div>
 
             </div>
@@ -2017,7 +2011,7 @@
             const loader = document.getElementById('page-loader');
             const loaderBar = document.getElementById('loader-bar');
             if (!wrapper || !canvas) return;
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d', { alpha: true });
 
             const TOTAL = 151;
             const frames = [];
@@ -2027,13 +2021,47 @@
             let smoothFrame = 0;
             let running = false;
             let sized = false;
+            // Cached layout values – updated on resize only
+            let cw = 0, ch = 0, drawX = 0, drawY = 0, drawW = 0, drawH = 0;
 
-            // Preload all frames
-            for (let i = 1; i <= TOTAL; i++) {
-                const img = new Image();
-                img.src = 'hero-frames/frame-' + String(i).padStart(4, '0') + '.webp';
-                img.onload = onFrameLoad;
-                frames.push(img);
+            // Preload frames in batches to avoid network congestion
+            const BATCH = 6;
+            let queue = [];
+            for (let i = 1; i <= TOTAL; i++) queue.push(i);
+
+            function loadBatch() {
+                const batch = queue.splice(0, BATCH);
+                batch.forEach(i => {
+                    const img = new Image();
+                    img.decoding = 'async';
+                    img.src = 'hero-frames/frame-' + String(i).padStart(4, '0') + '.webp';
+                    img.onload = onFrameLoad;
+                    frames[i - 1] = img;
+                });
+            }
+
+            function onFrameLoad() {
+                loaded++;
+                if (loaderBar) loaderBar.style.width = Math.round((loaded / TOTAL) * 100) + '%';
+                if (loaded === TOTAL) {
+                    allLoaded();
+                } else if (queue.length) {
+                    loadBatch();
+                }
+            }
+
+            // Kick off initial batches
+            for (let b = 0; b < Math.ceil(TOTAL / BATCH); b++) loadBatch();
+
+            function computeDrawRect() {
+                const rect = canvas.getBoundingClientRect();
+                cw = rect.width; ch = rect.height;
+                const img = frames[0];
+                if (!img || !img.naturalWidth) return;
+                const iw = img.naturalWidth, ih = img.naturalHeight;
+                const scale = Math.min(cw / iw, ch / ih);
+                drawW = iw * scale; drawH = ih * scale;
+                drawX = (cw - drawW) / 2; drawY = (ch - drawH) / 2;
             }
 
             function sizeCanvas() {
@@ -2043,12 +2071,7 @@
                 canvas.height = rect.height * dpr;
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
                 sized = true;
-            }
-
-            function onFrameLoad() {
-                loaded++;
-                if (loaderBar) loaderBar.style.width = Math.round((loaded / TOTAL) * 100) + '%';
-                if (loaded === TOTAL) allLoaded();
+                computeDrawRect();
             }
 
             function drawFrame(idx) {
@@ -2056,15 +2079,9 @@
                 if (idx === currentIdx) return;
                 currentIdx = idx;
                 const img = frames[idx];
-                if (!img.complete || !sized) return;
-                const rect = canvas.getBoundingClientRect();
-                const cw = rect.width, ch = rect.height;
-                const iw = img.naturalWidth, ih = img.naturalHeight;
-                const scale = Math.min(cw / iw, ch / ih);
-                const dw = iw * scale, dh = ih * scale;
-                const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
+                if (!img || !img.complete || !sized) return;
                 ctx.clearRect(0, 0, cw, ch);
-                ctx.drawImage(img, dx, dy, dw, dh);
+                ctx.drawImage(img, drawX, drawY, drawW, drawH);
             }
 
             function allLoaded() {
@@ -2074,7 +2091,6 @@
                 }
                 sizeCanvas();
                 drawFrame(0);
-                // Trigger staggered hero reveals
                 requestAnimationFrame(() => {
                     document.querySelectorAll('.hero-reveal').forEach(el => el.classList.add('visible'));
                 });
@@ -2082,18 +2098,20 @@
                 loop();
             }
 
-            // Smooth lerp loop
-            const LERP = 0.08;
+            // Smooth lerp loop – higher LERP = snappier response
+            const LERP = 0.12;
             function loop() {
                 if (!running) return;
                 const diff = targetFrame - smoothFrame;
-                if (Math.abs(diff) > 0.15) {
+                if (Math.abs(diff) > 0.1) {
                     smoothFrame += diff * LERP;
+                    drawFrame(Math.round(smoothFrame));
+                    requestAnimationFrame(loop);
                 } else {
                     smoothFrame = targetFrame;
+                    drawFrame(Math.round(smoothFrame));
+                    // Pause loop until next scroll triggers it again
                 }
-                drawFrame(Math.round(smoothFrame));
-                requestAnimationFrame(loop);
             }
 
             // Scroll maps to first 70% of frames
@@ -2104,6 +2122,8 @@
                 const scrollableH = wrapper.offsetHeight - window.innerHeight;
                 const progress = Math.max(0, Math.min(1, scrolled / scrollableH));
                 targetFrame = progress * (SCROLL_FRAMES - 1);
+                // Restart loop if it went idle
+                if (running && Math.abs(targetFrame - smoothFrame) > 0.1) requestAnimationFrame(loop);
             }, { passive: true });
 
             window.addEventListener('resize', () => { if (sized) { sizeCanvas(); currentIdx = -1; drawFrame(Math.round(smoothFrame)); } });
