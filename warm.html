@@ -1749,22 +1749,16 @@
     <section class="relative py-20 md:py-28 overflow-x-clip" style="content-visibility: auto;">
         <div class="max-w-6xl mx-auto px-6">
             <div
-                class="relative bg-primary rounded-3xl md:min-h-[480px] flex flex-col items-center justify-center overflow-visible">
+                class="relative bg-primary rounded-3xl md:min-h-[480px] flex flex-col md:flex-row items-center overflow-visible">
 
-                <!-- Bild im Hintergrund, zentriert, ragt über die Box hinaus -->
-                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <img id="cta-parallax-img" src="Newww.png" alt="zZzlim® Produkt"
-                        class="w-[250px] md:w-[420px] h-auto object-contain drop-shadow-2xl opacity-30 md:opacity-25 md:-mt-10 md:scale-110" loading="lazy" />
-                </div>
-
-                <!-- Text + Button zentriert darüber -->
-                <div class="relative z-10 flex flex-col items-center text-center px-8 py-12 md:py-20">
+                <!-- Layer 1 (oberste): Text + Button links -->
+                <div class="relative z-20 flex-1 text-center md:text-left px-8 md:px-14 py-10 md:py-20 max-w-lg">
                     <h2
-                        class="text-2xl sm:text-3xl md:text-5xl font-bold italic leading-tight tracking-tight font-display text-white">
+                        class="text-2xl sm:text-3xl md:text-4xl font-bold italic leading-tight tracking-tight font-display text-white">
                         Bereit für erholsame Nächte?</h2>
 
                     <a href="https://zzzlim.de/products/zzzlim®-monatskur-30-kapseln" target="_blank" rel="noopener"
-                        class="cta-glow inline-flex items-center gap-3 mt-8 md:mt-10 bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg md:text-xl hover:bg-white/90 cursor-pointer">
+                        class="cta-glow inline-flex items-center gap-3 mt-6 md:mt-8 bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg md:text-xl hover:bg-white/90 cursor-pointer">
                         Jetzt entdecken <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M5 12h14" />
@@ -1772,6 +1766,13 @@
                         </svg>
                     </a>
                     <p class="text-white/65 text-xs md:text-sm mt-3">Testen Sie es 30 Tage kostenlos.</p>
+                </div>
+
+                <!-- Layer 2 (mittel): Bild rechts, ragt über die Box hinaus -->
+                <div
+                    class="relative z-10 flex justify-center md:absolute md:right-[-20px] md:top-[-80px] md:bottom-[-80px] md:w-[48%] md:items-center md:justify-center pointer-events-none">
+                    <img id="cta-parallax-img" src="Newww.png" alt="zZzlim® Produkt"
+                        class="w-[220px] md:w-full md:max-w-[400px] h-auto object-contain drop-shadow-2xl" loading="lazy" />
                 </div>
 
             </div>
