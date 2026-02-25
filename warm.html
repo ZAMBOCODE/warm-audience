@@ -1749,25 +1749,22 @@
     <section class="relative py-20 md:py-28 overflow-x-clip" style="content-visibility: auto;">
         <div class="max-w-6xl mx-auto px-6">
             <div
-                class="relative bg-primary rounded-3xl md:min-h-[480px] flex flex-col md:flex-row items-center overflow-visible">
+                class="relative bg-primary rounded-3xl md:min-h-[480px] flex flex-col items-center justify-center overflow-visible">
 
-                <!-- Text + Button -->
-                <div class="relative z-10 flex-1 text-center md:text-left px-8 md:px-14 py-10 md:py-20 max-w-lg">
-                    <h2
-                        class="text-2xl sm:text-3xl md:text-4xl font-bold italic leading-tight tracking-tight font-display text-white">
-                        Bereit für erholsame Nächte?</h2>
-
-                    <!-- Bild – nur auf Mobile sichtbar -->
-                    <div class="md:hidden flex justify-center mt-6 -mb-2">
-                        <img src="Newww.png" alt="zZzlim® Produkt" class="w-[200px] h-auto object-contain drop-shadow-2xl"
-                            loading="lazy" />
-                    </div>
+                <!-- Bild im Hintergrund, zentriert, ragt über die Box hinaus -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <img id="cta-parallax-img" src="Newww.png" alt="zZzlim® Produkt"
+                        class="w-[250px] md:w-[420px] h-auto object-contain drop-shadow-2xl opacity-30 md:opacity-25 md:-mt-10 md:scale-110" loading="lazy" />
                 </div>
 
-                <!-- Button zentriert (über Text + Bild, in der Mitte der Box) -->
-                <div class="relative z-10 flex flex-col items-center w-full md:absolute md:bottom-10 md:left-1/2 md:-translate-x-1/2 pb-8 md:pb-0">
+                <!-- Text + Button zentriert darüber -->
+                <div class="relative z-10 flex flex-col items-center text-center px-8 py-12 md:py-20">
+                    <h2
+                        class="text-2xl sm:text-3xl md:text-5xl font-bold italic leading-tight tracking-tight font-display text-white">
+                        Bereit für erholsame Nächte?</h2>
+
                     <a href="https://zzzlim.de/products/zzzlim®-monatskur-30-kapseln" target="_blank" rel="noopener"
-                        class="cta-glow inline-flex items-center gap-3 bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg md:text-xl hover:bg-white/90 cursor-pointer">
+                        class="cta-glow inline-flex items-center gap-3 mt-8 md:mt-10 bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg md:text-xl hover:bg-white/90 cursor-pointer">
                         Jetzt entdecken <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M5 12h14" />
@@ -1775,13 +1772,6 @@
                         </svg>
                     </a>
                     <p class="text-white/65 text-xs md:text-sm mt-3">Testen Sie es 30 Tage kostenlos.</p>
-                </div>
-
-                <!-- Bild rechts – nur Desktop, ragt über die Box hinaus -->
-                <div
-                    class="hidden md:flex absolute right-[-20px] top-[-80px] bottom-[-80px] w-[48%] items-center justify-center pointer-events-none">
-                    <img id="cta-parallax-img" src="Newww.png" alt="zZzlim® Produkt"
-                        class="w-full max-w-[400px] h-auto object-contain drop-shadow-2xl" loading="lazy" />
                 </div>
 
             </div>
