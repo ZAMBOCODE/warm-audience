@@ -56,18 +56,22 @@
             scrollbar-color: #861330 #f8f6f6;
             scrollbar-width: thin;
             scroll-behavior: smooth;
-            scroll-snap-type: y proximity;
             overflow-x: hidden;
         }
 
-        /* Section Snap – Hero + Hero-Wrapper ausgenommen */
-        section:not(#main-content),
-        #night-timeline-wrapper {
-            scroll-snap-align: start;
-            scroll-margin-top: 3rem;
-        }
-        #hero-video-wrapper {
-            scroll-snap-align: none;
+        /* Section Snap – nur Desktop */
+        @media (min-width: 768px) {
+            html {
+                scroll-snap-type: y proximity;
+            }
+            section:not(#main-content),
+            #night-timeline-wrapper {
+                scroll-snap-align: start;
+                scroll-margin-top: 3rem;
+            }
+            #hero-video-wrapper {
+                scroll-snap-align: none;
+            }
         }
 
         /* Ambient Floating Blobs */
@@ -1434,7 +1438,7 @@
         </div>
     </section>
 
-    <section id="variante-4-tabs" class="relative py-10 md:py-16 bg-[#f8f6f6] overflow-hidden">
+    <section id="variante-4-tabs" class="relative py-6 md:py-16 bg-[#f8f6f6] overflow-hidden">
         <div class="max-w-6xl mx-auto px-6">
 
             <!-- Überschrift zentriert -->
@@ -1447,11 +1451,11 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-10 items-center">
 
                 <!-- Links: Produktbild groß -->
                 <div class="flex justify-center pillar-reveal">
-                    <img src="ProductPicZZLIM.png" alt="zZzlim® Night Complex" class="w-full max-w-[620px] md:max-w-[700px] h-auto object-contain drop-shadow-xl" loading="lazy" />
+                    <img src="ProductPicZZLIM.png" alt="zZzlim® Night Complex" class="w-full max-w-[380px] md:max-w-[700px] h-auto object-contain drop-shadow-xl" loading="lazy" />
                 </div>
 
                 <!-- Rechts: Tabs + Content -->
@@ -1683,7 +1687,7 @@
             <div class="relative rounded-3xl overflow-hidden bg-primary grid grid-cols-1 md:grid-cols-2">
 
                 <!-- Links: Text + Button -->
-                <div class="flex flex-col justify-center px-8 md:px-14 py-12 md:py-16 order-2 md:order-1">
+                <div class="flex flex-col justify-center items-center text-center md:items-start md:text-left px-8 md:px-14 py-12 md:py-16 order-2 md:order-1">
                     <h2 class="text-2xl sm:text-3xl md:text-[2.75rem] font-bold leading-tight tracking-tight font-display text-white">
                         Bereit für <span class="italic">erholsame Nächte?</span>
                     </h2>
@@ -1700,8 +1704,8 @@
                 <div class="relative min-h-[250px] md:min-h-[480px] order-1 md:order-2">
                     <img src="freepik__realistic-professional-photo-of-the-main-object-pl__50209.png" alt="zZzlim® Produkt"
                         class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                    <!-- Gradient-Übergang von primary ins Bild -->
-                    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-transparent"></div>
+                    <!-- Gradient-Übergang nur Desktop -->
+                    <div class="absolute inset-0 hidden md:block bg-gradient-to-r from-primary via-primary/40 to-transparent"></div>
                 </div>
 
             </div>
@@ -2104,8 +2108,8 @@
                     heroHeadline.style.opacity = 1 - (blurProgress * 0.3);
                 }
 
-                // Canvas grows 20% while scrolling (1.0 → 1.2 scale)
-                if (canvasWrapper) {
+                // Canvas grows 20% while scrolling (1.0 → 1.2 scale) – only desktop
+                if (canvasWrapper && window.innerWidth >= 768) {
                     const scale = 1 + (progress * 0.2);
                     canvasWrapper.style.transform = 'translateX(-50%) translateY(-50%) scale(' + scale + ')';
                 }
