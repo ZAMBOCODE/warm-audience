@@ -643,39 +643,6 @@
             transform: translateY(0);
         }
 
-        /* Floating Z's */
-        .float-z {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            font-family: 'Fraunces', serif;
-            font-style: italic;
-            color: #861330;
-            opacity: 0;
-            will-change: transform, opacity;
-            user-select: none;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 0;
-                transform: translateY(0) rotate(var(--rot-start));
-            }
-
-            12% {
-                opacity: var(--max-opacity);
-            }
-
-            85% {
-                opacity: var(--max-opacity);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(var(--travel)) rotate(var(--rot-end));
-            }
-        }
-
         /* Night Timeline */
         .nt-icon {
             border: 1px solid transparent;
@@ -1010,16 +977,13 @@
         /* Reduce scroll heights on mobile */
         @media (max-width: 767px) {
             #hero-video-wrapper {
-                height: 200vh !important;
+                height: 160vh !important;
             }
 
             #night-timeline-wrapper {
                 height: 300vh !important;
             }
 
-            .float-z {
-                display: none !important;
-            }
         }
     </style>
 </head>
@@ -1124,58 +1088,69 @@
     </div>
 
     <!-- HERO – Scroll-driven Video -->
-    <div id="hero-video-wrapper" class="relative" style="height: 450vh;">
+    <div id="hero-video-wrapper" class="relative -mt-12" style="height: 360vh;">
         <section id="main-content" class="sticky top-0 relative h-[100dvh] overflow-hidden bg-[#f8f6f6]">
 
-            <!-- Radial gradient shaders -->
-            <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-                style="background: radial-gradient(ellipse 60% 50% at 15% 20%, rgba(134,19,48,0.10) 0%, transparent 100%), radial-gradient(ellipse 50% 60% at 85% 75%, rgba(134,19,48,0.08) 0%, transparent 100%), radial-gradient(ellipse 40% 40% at 50% 10%, rgba(134,19,48,0.06) 0%, transparent 100%);"></div>
+            <!-- Aurora + Mouse-reactive gradient + Particle dust -->
 
-            <!-- Canvas for frame sequence – centered, overlapping headline -->
-            <div class="absolute left-1/2 top-[52%] md:top-[65%] -translate-x-1/2 -translate-y-1/2 w-[110%] sm:w-[85%] md:w-[53%] h-[75%] md:h-[85%] z-[8] pointer-events-none">
-                <canvas id="hero-canvas" class="w-full h-full hero-reveal" style="--delay: 0s"></canvas>
-            </div>
-
-            <div class="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-10 h-full flex flex-col" style="padding-top: 3rem;">
-
-                <!-- Headline – massive, full width -->
-                <div class="relative pt-4 md:pt-8">
-                    <!-- Tagline rechts oben -->
-                    <p class="hidden md:block absolute right-0 top-10 text-[13px] md:text-sm font-bold text-slate-800 text-right max-w-[220px] leading-snug hero-reveal" style="--delay: 0.6s">
-                        Natürlich formuliert für deine Abendroutine.</p>
+            <!-- LAYER 1: Headline – below canvas (z-5) -->
+            <div class="absolute inset-0 z-[5] flex items-start justify-center" style="padding-top: 3rem;">
+                <div class="w-full max-w-[1400px] mx-auto px-6 md:px-10 pt-4 md:pt-8 relative">
 
                     <h1 class="text-center text-[2.4rem] sm:text-[3.4rem] md:text-[5rem] lg:text-[6.8rem] xl:text-[8rem] font-bold leading-[0.85] tracking-[-0.03em] text-slate-900 hero-reveal" style="--delay: 0.3s">
                         Unterstützung<br />für <span class="italic text-primary font-display">deinen<br class="md:hidden" /> Schlaf.</span>
                     </h1>
                 </div>
+            </div>
 
-                <!-- Spacer -->
-                <div class="flex-1"></div>
+            <!-- LAYER 2: Canvas for frame sequence – above headline (z-15) -->
+            <div class="absolute left-1/2 top-[52%] md:top-[65%] w-[110%] sm:w-[85%] md:w-[53%] h-[75%] md:h-[85%] z-[15] pointer-events-none" style="transform: translateX(-50%) translateY(-50%) scale(1); will-change: transform;">
+                <canvas id="hero-canvas" class="w-full h-full hero-reveal" style="--delay: 0s"></canvas>
+            </div>
 
-                <!-- Bottom Bar -->
-                <div class="relative z-30 w-full flex flex-col items-center gap-5 pb-8 md:pb-10">
+            <!-- LAYER 3: Bottom CTA area – highest (z-25) -->
+            <div class="absolute bottom-0 left-0 right-0 z-[25] flex flex-col items-center gap-3 pb-8 md:pb-10">
 
-                    <!-- CTA Button – zentriert, groß -->
-                    <div class="hero-reveal" style="--delay: 0.9s">
-                        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln"
-                            class="cta-glow bg-primary text-white px-12 py-5 md:px-10 md:py-4 rounded-lg font-bold text-lg md:text-base hover:bg-primary/90 cursor-pointer inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all">
-                            Jetzt ansehen
-                        </a>
-                    </div>
-
+                <!-- CTA Button -->
+                <div class="hero-reveal" style="--delay: 0.9s">
+                    <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln"
+                        class="cta-glow bg-primary text-white px-12 py-5 md:px-10 md:py-4 rounded-lg font-bold text-lg md:text-base hover:bg-primary/90 cursor-pointer inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all">
+                        Jetzt ansehen
+                    </a>
                 </div>
 
-                <!-- Decorative curved brackets bottom center -->
-                <div class="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none" aria-hidden="true">
-                    <svg width="60" height="40" viewBox="0 0 60 40" fill="none">
-                        <path d="M15 5 C15 20, 22 35, 30 35" stroke="#861330" stroke-width="1.5" stroke-opacity="0.15" fill="none" stroke-linecap="round" />
-                        <path d="M45 5 C45 20, 38 35, 30 35" stroke="#861330" stroke-width="1.5" stroke-opacity="0.15" fill="none" stroke-linecap="round" />
-                        <circle cx="15" cy="5" r="2.5" fill="#861330" fill-opacity="0.12" />
-                        <circle cx="45" cy="5" r="2.5" fill="#861330" fill-opacity="0.12" />
-                    </svg>
+                <!-- Star-Rating – unter dem Button -->
+                <div class="hero-reveal flex items-center gap-3" style="--delay: 1s">
+                    <div class="flex text-amber-400 gap-0.5">
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                    </div>
+                    <span class="text-sm md:text-base text-slate-700 font-semibold">4.9 / 5 — 127+ Bewertungen</span>
                 </div>
 
             </div>
+
+            <!-- LAYER 3b: Trust Badges – links mittig, zeitgesteuert gestaffelt -->
+            <div class="hidden md:flex absolute top-1/2 -translate-y-1/2 left-8 lg:left-14 z-[25] flex-col gap-5">
+                <div class="hero-reveal flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-2xl px-7 py-5 shadow-md border border-slate-100" style="--delay: 1.2s">
+                    <svg class="w-8 h-8 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span class="text-base font-bold text-slate-700 whitespace-nowrap">100 % natürlich</span>
+                </div>
+                <div class="hero-reveal flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-2xl px-7 py-5 shadow-md border border-slate-100" style="--delay: 1.5s">
+                    <svg class="w-8 h-8 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-base font-bold text-slate-700 whitespace-nowrap">Hergestellt in DE</span>
+                </div>
+                <div class="hero-reveal flex items-center gap-4 bg-white/70 backdrop-blur-sm rounded-2xl px-7 py-5 shadow-md border border-slate-100" style="--delay: 1.8s">
+                    <svg class="w-8 h-8 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="text-base font-bold text-slate-700 whitespace-nowrap">Schneller Versand</span>
+                </div>
+            </div>
+
+
+
         </section>
     </div>
 
@@ -1187,7 +1162,7 @@
             <!-- Heading -->
             <div class="text-center mb-8 md:mb-10 px-6 mx-auto">
                 <h2
-                    class="text-xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold italic leading-[1] tracking-tight md:whitespace-nowrap">
+                    class="text-3xl sm:text-4xl md:text-5xl font-bold italic leading-[1] tracking-tight md:whitespace-nowrap">
                     Der Weg zur vollständigen Regeneration</h2>
             </div>
 
@@ -1459,113 +1434,79 @@
         </div>
     </section>
 
-    <!-- QUALITÄT & FORMEL -->
-    <section class="relative py-14 md:py-20 bg-[#f8f6f6] overflow-hidden" style="content-visibility: auto;">
+    <section id="variante-4-tabs" class="relative py-10 md:py-16 bg-[#f8f6f6] overflow-hidden">
         <div class="max-w-6xl mx-auto px-6">
 
-            <!-- Mobile: Titel oben zentriert, dann Bild, dann Content -->
-            <!-- Heading – nur auf Mobile oben zentriert sichtbar -->
-            <div class="text-center mb-6 lg:hidden pillar-reveal">
-                <h2 class="text-2xl sm:text-3xl font-bold leading-tight tracking-tight font-display">
+            <!-- Überschrift zentriert -->
+            <div class="text-center mb-3 md:mb-4 pillar-reveal">
+                <h2 class="text-2xl sm:text-3xl md:text-[2.75rem] font-bold leading-tight tracking-tight font-display">
                     Unterstützung für <span class="italic text-primary">deine Abendroutine.</span>
                 </h2>
+                <p class="text-slate-600 text-sm md:text-base leading-relaxed mt-3 max-w-lg mx-auto">
+                    Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt von Experten für eine neue Kultur des Schlafens.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
 
-                <!-- Links: Produktbild mit Badges -->
-                <div class="pillar-reveal flex justify-center">
-                    <img src="ProductPicZZLIM.png" alt="zZzlim® Night Complex" class="w-full max-w-[480px] md:max-w-[540px] h-auto object-contain drop-shadow-xl" loading="lazy" />
+                <!-- Links: Produktbild groß -->
+                <div class="flex justify-center pillar-reveal">
+                    <img src="ProductPicZZLIM.png" alt="zZzlim® Night Complex" class="w-full max-w-[620px] md:max-w-[700px] h-auto object-contain drop-shadow-xl" loading="lazy" />
                 </div>
 
-                <!-- Rechts: Headline, Text, Checkliste, CTA, Badges -->
-                <div class="pillar-reveal text-center lg:text-left">
-                    <h2 class="hidden lg:block text-2xl sm:text-3xl md:text-[2.75rem] font-bold leading-tight tracking-tight font-display mb-4 md:mb-5">
-                        Unterstützung für<br /><span class="italic text-primary">deine Abendroutine.</span>
-                    </h2>
+                <!-- Rechts: Tabs + Content -->
+                <div class="pillar-reveal">
+                    <!-- Tab Navigation -->
+                    <div class="flex gap-1 mb-6 bg-slate-100 rounded-lg p-1" id="v4-tab-nav">
+                        <button class="v4-tab flex-1 py-3 px-4 rounded-md text-xs font-bold uppercase tracking-wider transition-all bg-white text-primary shadow-sm cursor-pointer" data-tab="inhaltsstoffe">Inhaltsstoffe</button>
+                        <button class="v4-tab flex-1 py-3 px-4 rounded-md text-xs font-bold uppercase tracking-wider transition-all text-slate-500 hover:text-slate-700 cursor-pointer" data-tab="qualitaet">Qualität</button>
+                    </div>
 
-                    <p class="text-slate-600 text-sm md:text-base leading-relaxed mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0">
-                        Hochwertige Inhaltsstoffe, intelligent kombiniert. Entwickelt von Experten für eine neue Kultur des Schlafens. 100% Vegan.
-                    </p>
-
-                    <!-- Checkliste -->
-                    <div class="flex flex-col gap-3.5 mb-7 md:mb-8 items-center lg:items-start">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                            <span class="text-sm md:text-base font-semibold text-slate-800">Melatonin & L-Tryptophan</span>
+                    <!-- Tab Panels – feste Höhe -->
+                    <div class="h-[420px] md:h-[380px] overflow-y-auto">
+                        <div id="v4-panel-inhaltsstoffe" class="v4-panel">
+                            <p class="text-slate-600 text-sm leading-relaxed mb-5">14 natürliche Zutaten, intelligent kombiniert für deine Schlafqualität.</p>
+                            <div class="flex flex-col gap-3.5">
+                                <div class="flex items-center gap-3"><svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-sm font-semibold text-slate-800">Melatonin & L-Tryptophan</span></div>
+                                <div class="flex items-center gap-3"><svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-sm font-semibold text-slate-800">Komplex aus B-Vitaminen</span></div>
+                                <div class="flex items-center gap-3"><svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-sm font-semibold text-slate-800">Safran-Extrakt</span></div>
+                                <div class="flex items-center gap-3"><svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="text-sm font-semibold text-slate-800">Nopal-Kaktus Pulver</span></div>
+                            </div>
+                            <!-- Zertifizierungen -->
+                            <div class="flex flex-col gap-3 mt-6 pt-5 border-t border-slate-200/60">
+                                <div class="flex items-center gap-4 bg-white/60 rounded-xl p-4 border border-slate-100">
+                                    <img src="68bf2fd664663f05dc5b4154_large-White_Merieux_Logo.webp" alt="Mérieux" class="h-8 object-contain invert" loading="lazy" />
+                                    <div><span class="text-sm font-bold text-slate-800">Mérieux NutriSciences</span><p class="text-xs text-slate-500 mt-0.5">Jede Charge unabhängig geprüft</p></div>
+                                </div>
+                                <div class="flex items-center gap-4 bg-white/60 rounded-xl p-4 border border-slate-100">
+                                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><i data-lucide="shield-check" class="w-5 h-5 text-primary"></i></div>
+                                    <div><span class="text-sm font-bold text-slate-800">GMP, HACCP & ISO zertifiziert</span><p class="text-xs text-slate-500 mt-0.5">Höchste Produktionsstandards</p></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                            <span class="text-sm md:text-base font-semibold text-slate-800">Komplex aus B-Vitaminen</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                            <span class="text-sm md:text-base font-semibold text-slate-800">Safran-Extrakt</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-primary shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="10" cy="10" r="8" stroke-opacity="0.3" /><path d="M6 10l3 3 5-5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                            <span class="text-sm md:text-base font-semibold text-slate-800">Nopal-Kaktus Pulver</span>
+                        <div id="v4-panel-qualitaet" class="v4-panel hidden">
+                            <p class="text-slate-600 text-sm leading-relaxed mb-5">Keine Kompromisse bei Qualität & Reinheit.</p>
+                            <div class="grid grid-cols-3 gap-4 bg-white/60 rounded-2xl p-6 border border-slate-100">
+                                <div class="flex flex-col items-center gap-2"><div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><i data-lucide="leaf" class="w-5 h-5 text-primary"></i></div><span class="text-xs text-slate-600 font-medium text-center">Vegan</span></div>
+                                <div class="flex flex-col items-center gap-2"><div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><i data-lucide="dna" class="w-5 h-5 text-primary"></i></div><span class="text-xs text-slate-600 font-medium text-center">Ohne Gentechnik</span></div>
+                                <div class="flex flex-col items-center gap-2"><div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><i data-lucide="wheat-off" class="w-5 h-5 text-primary"></i></div><span class="text-xs text-slate-600 font-medium text-center">Glutenfrei</span></div>
+                                <div class="flex flex-col items-center gap-2"><div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><i data-lucide="heart-handshake" class="w-5 h-5 text-primary"></i></div><span class="text-xs text-slate-600 font-medium text-center">Tierversuchsfrei</span></div>
+                                <div class="flex flex-col items-center gap-2"><div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><i data-lucide="candy-off" class="w-5 h-5 text-primary"></i></div><span class="text-xs text-slate-600 font-medium text-center">Ohne Zucker</span></div>
+                                <div class="flex flex-col items-center gap-2"><div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><i data-lucide="flask-conical-off" class="w-5 h-5 text-primary"></i></div><span class="text-xs text-slate-600 font-medium text-center">Keine Aromen</span></div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- CTA Button -->
-                    <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln"
-                        class="bg-primary text-white px-10 py-4 rounded-lg font-bold text-sm uppercase tracking-wider hover:bg-primary/90 cursor-pointer inline-block transition-all">
-                        In Ruhe ausprobieren
-                    </a>
-                    <p class="text-xs text-slate-400 mt-3">*Nur solange der Vorrat reicht. Versandkostenfrei ab 50€.</p>
-
-                    <!-- Qualitäts-Badges -->
-                    <div class="grid grid-cols-3 gap-3 mt-7 md:mt-8 bg-white/60 rounded-2xl p-4 md:p-5 border border-slate-100">
-                        <div class="flex flex-col items-center gap-1.5">
-                            <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-primary/10 flex items-center justify-center">
-                                <i data-lucide="leaf" class="w-4 h-4 md:w-5 md:h-5 text-primary"></i>
-                            </div>
-                            <span class="text-[10px] md:text-xs text-slate-600 font-medium text-center">Vegan</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5">
-                            <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-primary/10 flex items-center justify-center">
-                                <i data-lucide="dna" class="w-4 h-4 md:w-5 md:h-5 text-primary"></i>
-                            </div>
-                            <span class="text-[10px] md:text-xs text-slate-600 font-medium text-center">Ohne Gentechnik</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5">
-                            <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-primary/10 flex items-center justify-center">
-                                <i data-lucide="wheat-off" class="w-4 h-4 md:w-5 md:h-5 text-primary"></i>
-                            </div>
-                            <span class="text-[10px] md:text-xs text-slate-600 font-medium text-center">Glutenfrei</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5">
-                            <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-primary/10 flex items-center justify-center">
-                                <i data-lucide="heart-handshake" class="w-4 h-4 md:w-5 md:h-5 text-primary"></i>
-                            </div>
-                            <span class="text-[10px] md:text-xs text-slate-600 font-medium text-center">Tierversuchsfrei</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5">
-                            <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-primary/10 flex items-center justify-center">
-                                <i data-lucide="candy-off" class="w-4 h-4 md:w-5 md:h-5 text-primary"></i>
-                            </div>
-                            <span class="text-[10px] md:text-xs text-slate-600 font-medium text-center">Ohne Zuckerzusatz</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1.5">
-                            <div class="w-10 h-10 md:w-11 md:h-11 rounded-full bg-primary/10 flex items-center justify-center">
-                                <i data-lucide="flask-conical-off" class="w-4 h-4 md:w-5 md:h-5 text-primary"></i>
-                            </div>
-                            <span class="text-[10px] md:text-xs text-slate-600 font-medium text-center">Ohne künstliche Aromen</span>
-                        </div>
-                    </div>
-
-                    <!-- Mérieux Logo -->
-                    <div class="flex items-center justify-center lg:justify-start gap-3 mt-5 md:mt-6">
-                        <span class="text-xs font-bold italic text-slate-700">Jede Charge unabhängig geprüft durch:</span>
-                        <img src="68bf2fd664663f05dc5b4154_large-White_Merieux_Logo.webp" alt="Mérieux NutriSciences" class="h-6 md:h-7 object-contain invert" loading="lazy" />
+                    <!-- CTA -->
+                    <div class="mt-8 text-center">
+                        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln"
+                            class="bg-primary text-white px-10 py-4 rounded-lg font-bold text-sm uppercase tracking-wider hover:bg-primary/90 cursor-pointer inline-block transition-all">
+                            In Ruhe ausprobieren
+                        </a>
+                        <p class="text-xs text-slate-400 mt-3">*Nur solange der Vorrat reicht. Versandkostenfrei ab 50€.</p>
                     </div>
                 </div>
-
+            </div>
             </div>
         </div>
     </section>
@@ -1737,41 +1678,36 @@
     </section>
 
     <!-- CTA – Erholsamer Schlaf -->
-    <section class="relative py-20 md:py-28 overflow-x-clip" style="content-visibility: auto;">
+    <section class="relative py-16 md:py-24 bg-[#f8f6f6]" style="content-visibility: auto;">
         <div class="max-w-6xl mx-auto px-6">
-            <div
-                class="relative bg-primary rounded-3xl md:min-h-[480px] flex flex-col md:flex-row items-center overflow-visible">
+            <div class="relative rounded-3xl overflow-hidden bg-primary grid grid-cols-1 md:grid-cols-2">
 
-                <!-- Layer 1 (oberste): Text + Button links -->
-                <div class="relative z-20 flex-1 text-center md:text-left px-8 md:px-14 pt-10 pb-4 md:py-20 max-w-lg order-1 md:order-none">
-                    <h2
-                        class="text-2xl sm:text-3xl md:text-4xl font-bold italic leading-tight tracking-tight font-display text-white">
-                        Bereit für erholsame Nächte?</h2>
+                <!-- Links: Text + Button -->
+                <div class="flex flex-col justify-center px-8 md:px-14 py-12 md:py-16 order-2 md:order-1">
+                    <h2 class="text-2xl sm:text-3xl md:text-[2.75rem] font-bold leading-tight tracking-tight font-display text-white">
+                        Bereit für <span class="italic">erholsame Nächte?</span>
+                    </h2>
+                    <div class="mt-8">
+                        <a href="https://zzzlim.de/products/zzzlim%C2%AE-monatskur-30-kapseln"
+                            class="bg-white text-primary px-10 py-4 rounded-lg font-bold text-sm uppercase tracking-wider hover:bg-white/90 cursor-pointer inline-block transition-all">
+                            In Ruhe ausprobieren
+                        </a>
+                        <p class="text-white/60 text-xs mt-3">*Nur solange der Vorrat reicht. Versandkostenfrei ab 50€.</p>
+                    </div>
                 </div>
 
-                <!-- Layer 2 (mittel): Bild – auf Mobile mittig zwischen Headline und Button -->
-                <div
-                    class="relative z-10 flex justify-center order-2 md:order-none md:absolute md:right-[-20px] md:top-[-80px] md:bottom-[-80px] md:w-[48%] md:items-center md:justify-center pointer-events-none py-4 md:py-0">
-                    <img id="cta-parallax-img" src="Newww.png" alt="zZzlim® Produkt"
-                        class="w-[220px] md:w-full md:max-w-[400px] h-auto object-contain drop-shadow-2xl" loading="lazy" />
-                </div>
-
-                <!-- Layer 3: CTA + Subtext – auf Mobile unter dem Bild -->
-                <div class="relative z-20 text-center md:text-left px-8 md:px-14 pb-10 md:pb-0 md:absolute md:bottom-20 md:left-0 order-3 md:order-none max-w-lg">
-                    <a href="https://zzzlim.de/products/zzzlim®-monatskur-30-kapseln" target="_blank" rel="noopener"
-                        class="cta-glow inline-flex items-center gap-3 bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg md:text-xl hover:bg-white/90 cursor-pointer">
-                        Jetzt entdecken <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14" />
-                            <path d="m12 5 7 7-7 7" />
-                        </svg>
-                    </a>
-                    <p class="text-white/65 text-xs md:text-sm mt-3">Testen Sie es 30 Tage kostenlos.</p>
+                <!-- Rechts: Bild -->
+                <div class="relative min-h-[250px] md:min-h-[480px] order-1 md:order-2">
+                    <img src="freepik__realistic-professional-photo-of-the-main-object-pl__50209.png" alt="zZzlim® Produkt"
+                        class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                    <!-- Gradient-Übergang von primary ins Bild -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-transparent"></div>
                 </div>
 
             </div>
         </div>
     </section>
+
 
     <!-- TESTIMONIALS -->
     <section id="erfahrungen" class="py-16 md:py-24 bg-[#f8f6f6]" style="content-visibility: auto;">
@@ -1954,12 +1890,33 @@
             let prevActiveIdx = -1;
             let ticking = false;
 
+            // Remap progress so the dot pauses briefly at each icon
+            function stickyMap(t) {
+                var dwell = 0.06; // 6% of total scroll dwell per icon
+                var segs = totalSteps - 1;
+                var totalDwell = totalSteps * dwell;
+                var moveEach = (1 - totalDwell) / segs;
+                var acc = 0;
+                for (var i = 0; i < totalSteps; i++) {
+                    if (t <= acc + dwell) return i / segs;
+                    acc += dwell;
+                    if (i < segs) {
+                        if (t <= acc + moveEach) {
+                            var local = (t - acc) / moveEach;
+                            return (i + local) / segs;
+                        }
+                        acc += moveEach;
+                    }
+                }
+                return 1;
+            }
+
             function update() {
                 const rect = wrapper.getBoundingClientRect();
                 const scrolled = -rect.top;
                 const scrollableH = wrapper.offsetHeight - window.innerHeight;
                 const progress = Math.max(0, Math.min(1, scrolled / scrollableH));
-                const continuousStep = progress * (totalSteps - 1);
+                const continuousStep = stickyMap(progress) * (totalSteps - 1);
                 const activeIdx = Math.min(Math.floor(continuousStep + 0.01), totalSteps - 1);
 
                 // Step classes
@@ -2003,6 +1960,7 @@
             window.addEventListener('scroll', onScroll, { passive: true });
             update();
         })();
+
 
         // Scroll-driven Hero Frames (Apple-style canvas, lerp-smoothed)
         (function () {
@@ -2065,11 +2023,13 @@
             }
 
             function sizeCanvas() {
-                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                const dpr = window.devicePixelRatio || 1;
                 const rect = canvas.getBoundingClientRect();
                 canvas.width = rect.width * dpr;
                 canvas.height = rect.height * dpr;
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
                 sized = true;
                 computeDrawRect();
             }
@@ -2114,49 +2074,59 @@
                 }
             }
 
-            // Scroll maps to first 70% of frames
+            // First 70% of frames play during sticky phase, remaining 30% play after
             const SCROLL_FRAMES = Math.round(TOTAL * 0.7);
+            const REMAINING_FRAMES = TOTAL - SCROLL_FRAMES;
+            const POST_SCROLL_PX = window.innerHeight * 0.8; // scroll distance for remaining frames after sticky ends
+            const canvasWrapper = canvas.parentElement;
+            const heroHeadline = document.querySelector('#main-content .z-\\[5\\]');
+
             window.addEventListener('scroll', () => {
                 const rect = wrapper.getBoundingClientRect();
                 const scrolled = -rect.top;
                 const scrollableH = wrapper.offsetHeight - window.innerHeight;
                 const progress = Math.max(0, Math.min(1, scrolled / scrollableH));
-                targetFrame = progress * (SCROLL_FRAMES - 1);
+
+                // After sticky phase ends, continue playing remaining frames
+                const overscroll = scrolled - scrollableH;
+                const postProgress = Math.max(0, Math.min(1, overscroll / POST_SCROLL_PX));
+                targetFrame = progress * (SCROLL_FRAMES - 1) + postProgress * REMAINING_FRAMES;
                 // Restart loop if it went idle
                 if (running && Math.abs(targetFrame - smoothFrame) > 0.1) requestAnimationFrame(loop);
+
+                const seqProgress = targetFrame / (TOTAL - 1);
+
+                // Headline blur starting at 50% of sequence (0→6px blur)
+                if (heroHeadline) {
+                    const blurStart = 0.5;
+                    const blurProgress = Math.max(0, Math.min(1, (seqProgress - blurStart) / (1 - blurStart)));
+                    heroHeadline.style.filter = 'blur(' + (blurProgress * 6) + 'px)';
+                    heroHeadline.style.opacity = 1 - (blurProgress * 0.3);
+                }
+
+                // Canvas grows 20% while scrolling (1.0 → 1.2 scale)
+                if (canvasWrapper) {
+                    const scale = 1 + (progress * 0.2);
+                    canvasWrapper.style.transform = 'translateX(-50%) translateY(-50%) scale(' + scale + ')';
+                }
             }, { passive: true });
 
             window.addEventListener('resize', () => { if (sized) { sizeCanvas(); currentIdx = -1; drawFrame(Math.round(smoothFrame)); } });
         })();
 
-        // Floating Z's
+
+        // Variante 4 – Tab-Logik
         (function () {
-            const zChars = ['z', 'zz', 'zzz', 'Z', 'zZ'];
-            const sizes = [13, 16, 20, 24];
-            const MAX_Z = 15;
-            function spawnZ() {
-                if (document.querySelectorAll('.float-z').length >= MAX_Z) return;
-                const el = document.createElement('span');
-                el.className = 'float-z';
-                el.textContent = zChars[Math.floor(Math.random() * zChars.length)];
-                const size = sizes[Math.floor(Math.random() * sizes.length)];
-                el.style.fontSize = size + 'px';
-                el.style.left = (4 + Math.random() * 88) + 'vw';
-                el.style.top = (15 + Math.random() * 65) + 'vh';
-                const travel = '-' + (70 + Math.random() * 110) + 'px';
-                const rotStart = (Math.random() * 16 - 8) + 'deg';
-                const rotEnd = (Math.random() * 28 - 14) + 'deg';
-                const maxOpacity = (0.035 + Math.random() * 0.04).toFixed(3);
-                const dur = 6 + Math.random() * 7;
-                el.style.setProperty('--travel', travel);
-                el.style.setProperty('--rot-start', rotStart);
-                el.style.setProperty('--rot-end', rotEnd);
-                el.style.setProperty('--max-opacity', maxOpacity);
-                el.style.animation = 'floatUp ' + dur + 's ease-out forwards';
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), dur * 1000 + 100);
-            }
-            setTimeout(() => { spawnZ(); setInterval(spawnZ, 1800); }, 2000);
+            const tabs = document.querySelectorAll('.v4-tab');
+            const panels = document.querySelectorAll('.v4-panel');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => { t.classList.remove('bg-white', 'text-primary', 'shadow-sm'); t.classList.add('text-slate-500'); });
+                    tab.classList.add('bg-white', 'text-primary', 'shadow-sm'); tab.classList.remove('text-slate-500');
+                    panels.forEach(p => p.classList.add('hidden'));
+                    document.getElementById('v4-panel-' + tab.dataset.tab).classList.remove('hidden');
+                });
+            });
         })();
 
         // 3-Säulen – IntersectionObserver reveal
